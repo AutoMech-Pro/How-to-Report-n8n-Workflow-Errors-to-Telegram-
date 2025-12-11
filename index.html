@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Workflow Error Reporting: The Free Telegram Method</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F0F4F8; color: #1e293b; }
+        .chart-container { position: relative; margin: auto; height: 300px; width: 100%; max-width: 600px; max-height: 400px; }
+        .card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .step-number { background: linear-gradient(135deg, #0088CC 0%, #2563EB 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .telegram-msg { background-color: #e3f2fd; border-left: 4px solid #0088CC; font-family: monospace; }
+        /* Vibrant Palette: Telegram Blue #0088CC, Alert Pink #FF4081, Dark #1E293B */
+    </style>
+    <!-- Palette Name: Cyber-Social -->
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 text-white py-16 px-4 mb-12 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">
+                <span class="text-[#0088CC]">n8n</span> Error Reporting
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-light text-gray-300 mb-8">
+                The <span class="text-[#FF4081] font-bold">Free</span> Telegram Method
+            </h2>
+            <p class="max-w-2xl mx-auto text-gray-400 text-lg">
+                Stop flying blind. Build a robust, zero-cost error monitoring system for your self-hosted automation workflows in 15 minutes.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-6xl mx-auto px-4 pb-20 grid grid-cols-1 md:grid-cols-12 gap-8">
+
+        <!-- Intro / Value Prop -->
+        <section class="md:col-span-12 mb-8">
+            <div class="card p-8 bg-white border-l-8 border-[#FF4081]">
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Why Automate Error Reporting?</h3>
+                <p class="text-gray-600 mb-6">
+                    Manual monitoring is inefficient and risky. By leveraging the n8n Error Trigger node and Telegram's free API, you can reduce error detection time from hours to seconds.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container h-80">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-[#0088CC] mb-2">The Efficiency Gap</h4>
+                        <p class="text-sm text-gray-500">
+                            Without automation, you only find errors when a client complains or you manually check logs. With this Telegram setup, you are notified instantly via push notification.
+                        </p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-gray-700">
+                                <span class="text-[#FF4081] mr-2">➤</span> Instant Notifications
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <span class="text-[#FF4081] mr-2">➤</span> Direct Links to Execution Logs
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <span class="text-[#FF4081] mr-2">➤</span> $0 Implementation Cost
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prerequisites & Setup Time -->
+        <section class="md:col-span-4">
+            <div class="card p-6 h-full flex flex-col">
+                <h3 class="text-xl font-bold mb-4 text-slate-800 border-b pb-2">Resource Breakdown</h3>
+                <p class="text-gray-600 text-sm mb-4">
+                    You only need three things, and they are all free. This breakdown estimates the time required to configure each component.
+                </p>
+                <div class="chart-container flex-grow">
+                    <canvas id="setupTimeChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                    <span class="inline-block bg-[#0088CC] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">Total Time: ~15 Mins</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- The 4-Step Process (Main Tutorial) -->
+        <section class="md:col-span-8">
+            <div class="space-y-6">
+                <!-- Step 1 -->
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-100 text-slate-300 font-bold text-6xl -mr-4 -mt-2 opacity-50">1</div>
+                    <h3 class="text-xl font-bold text-[#0088CC] mb-2">Create the Telegram Bot</h3>
+                    <p class="text-gray-600 mb-4">
+                        Your "mailbox" for errors. Use <strong class="text-slate-800">@BotFather</strong> in Telegram.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                            <strong class="block text-sm text-slate-500 uppercase">Action</strong>
+                            <span class="text-slate-800">Send <code class="bg-gray-200 px-1 rounded">/newbot</code></span>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                            <strong class="block text-sm text-slate-500 uppercase">Outcome</strong>
+                            <span class="text-[#FF4081] font-mono text-sm break-all">API Token Received</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-100 text-slate-300 font-bold text-6xl -mr-4 -mt-2 opacity-50">2</div>
+                    <h3 class="text-xl font-bold text-[#0088CC] mb-2">Configure Global Error Handler</h3>
+                    <p class="text-gray-600 mb-4">
+                        Create a dedicated workflow that sits silently until called upon.
+                    </p>
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="text-center w-full">
+                            <div class="text-3xl mb-2">⚡</div>
+                            <div class="text-xs font-bold uppercase text-slate-500">Error Trigger Node</div>
+                        </div>
+                        <div class="text-slate-300 text-2xl hidden md:block">➔</div>
+                        <div class="text-slate-300 text-2xl block md:hidden">⬇</div>
+                        <div class="text-center w-full">
+                            <div class="text-3xl mb-2">✈️</div>
+                            <div class="text-xs font-bold uppercase text-slate-500">Telegram Node</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 telegram-msg p-3 rounded text-sm">
+                        <div class="font-bold text-[#FF4081]">🚨 Workflow Error Detected 🚨</div>
+                        <div>Workflow: {{ $json.workflow.name }}</div>
+                        <div>Node: {{ $json.execution.lastNodeExecuted }}</div>
+                        <div class="text-blue-600 underline cursor-pointer">[View Execution Log]</div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-100 text-slate-300 font-bold text-6xl -mr-4 -mt-2 opacity-50">3</div>
+                    <h3 class="text-xl font-bold text-[#0088CC] mb-2">Link Workflows</h3>
+                    <p class="text-gray-600">
+                        In your main automation workflow, go to <span class="font-bold text-slate-800">Settings > Error Workflow</span> and select your new "Global Error Handler". This creates the bridge.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="card p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-100 text-slate-300 font-bold text-6xl -mr-4 -mt-2 opacity-50">4</div>
+                    <h3 class="text-xl font-bold text-[#0088CC] mb-2">Test the System</h3>
+                    <p class="text-gray-600 mb-2">
+                        Force a crash to verify functionality.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 text-sm">
+                        <li>Create a test workflow.</li>
+                        <li>Add an HTTP Request node to an invalid URL.</li>
+                        <li>Execute and watch your Telegram buzz!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Data / Limits -->
+        <section class="md:col-span-12 mt-4">
+            <div class="card p-8 bg-slate-900 text-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-[#0088CC]">Technical Reliability</h3>
+                        <p class="text-gray-400 mb-4">
+                            The Telegram API is incredibly generous for a free service. Unless you are generating dozens of errors per second, you will never hit the rate limit.
+                        </p>
+                        <div class="flex items-center space-x-4 mb-2">
+                            <div class="text-4xl font-bold text-[#FF4081]">30</div>
+                            <div class="text-sm uppercase tracking-widest text-gray-500">Messages<br>Per Second</div>
+                        </div>
+                        <p class="text-xs text-gray-500 italic">Official Telegram Bot API Limit</p>
+                    </div>
+                    <div class="chart-container h-64">
+                        <canvas id="limitsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t py-12 text-center">
+        <p class="text-gray-500 text-sm">
+            Generated based on "n8n Telegram Error Reporting Guide" | <span class="text-[#0088CC] font-bold">100% Free Implementation</span>
+        </p>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        // --- UTILITIES ---
+        // Label wrapping logic for Chart.js
+        function wrapLabel(label, maxLen = 16) {
+            if (typeof label !== 'string' || label.length <= maxLen) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // Global Chart Defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.scale.grid.color = '#e2e8f0';
+
+        // Common Tooltip Config
+        const commonTooltip = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            },
+            backgroundColor: 'rgba(30, 41, 59, 0.9)',
+            padding: 12,
+            cornerRadius: 8
+        };
+
+        // --- CHART 1: EFFICIENCY (Bar) ---
+        const ctxEfficiency = document.getElementById('efficiencyChart').getContext('2d');
+        new Chart(ctxEfficiency, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('Manual Discovery (Hours)'), wrapLabel('Automated Alert (Seconds)')],
+                datasets: [{
+                    label: 'Time to Detect Error',
+                    data: [240, 0.5], // 4 hours vs 30 seconds (scaled visually)
+                    backgroundColor: ['#94a3b8', '#FF4081'], // Grey vs Alert Pink
+                    borderRadius: 6,
+                    barThickness: 50
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip,
+                    title: {
+                        display: true,
+                        text: 'Reaction Time Comparison',
+                        font: { size: 14, weight: 'bold' }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Time Scale (Conceptual)' },
+                        grid: { display: false }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: SETUP TIME (Doughnut) ---
+        const ctxSetup = document.getElementById('setupTimeChart').getContext('2d');
+        new Chart(ctxSetup, {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabel('Bot Creation'), wrapLabel('n8n Config'), wrapLabel('Workflow Linking'), wrapLabel('Testing')],
+                datasets: [{
+                    data: [3, 6, 2, 4], // Minutes
+                    backgroundColor: [
+                        '#0088CC', // Telegram Blue
+                        '#FF4081', // Pink
+                        '#2563EB', // Darker Blue
+                        '#06B6D4'  // Cyan
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { usePointStyle: true, padding: 20 }
+                    },
+                    tooltip: commonTooltip,
+                    title: {
+                        display: true,
+                        text: 'Setup Time (Minutes)',
+                        font: { size: 14, weight: 'bold' }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+
+        // --- CHART 3: API LIMITS (Horizontal Bar) ---
+        const ctxLimits = document.getElementById('limitsChart').getContext('2d');
+        new Chart(ctxLimits, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('Typical Error Rate'), wrapLabel('Telegram API Limit')],
+                datasets: [{
+                    label: 'Messages Per Second',
+                    data: [1, 30],
+                    backgroundColor: ['rgba(255, 255, 255, 0.3)', '#0088CC'],
+                    borderColor: ['rgba(255, 255, 255, 0.5)', '#0088CC'],
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    barThickness: 30
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip,
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: 'white', font: { weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
